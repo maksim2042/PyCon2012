@@ -106,3 +106,10 @@ def process_retweets(tweet):
         #print ':-('
         #print tweet
 
+def draw_core_retweets():
+    """
+    Draw the trimmed largest component of retweets.
+    """
+    comps = nx.connected_component_subgraphs(
+            retweets.to_undirected())
+

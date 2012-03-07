@@ -1,49 +1,55 @@
 Agenda - PyCon
 9:00 - 12:20
 Python requirements (10 min) (alex, Max)
-Enthought Python http://enthought.com/products/epd.php
-NetworkX library, Matplotlib, Requests, SimpleJSON
+    Enthought Python http://enthought.com/products/epd.php
+    NetworkX library, Matplotlib, Requests, SimpleJSON
 Introduction (20 min) (max)
-What are networks
-stories
-informal networks
-online networks
-Network data
-Edgelists, matrices, etc
+    What are networks
+    stories
+    informal networks
+    online networks
+    Network data
+    Edgelists, matrices, etc
 Python particulars (Alex - live-code) (20 min)
-Simple example using NetworkX
-Creating graphs
-Loading and saving graphs -- data formats
-Accessing nodes, edges, properties
-Graph iterators
-Drawing graphs
-Saving pictures
+    Simple example using NetworkX
+    Creating graphs
+    Loading and saving graphs -- data formats
+        to_dict
+        pickle
+        write formats
+        networkx.readwrite.json_graph
+    Accessing nodes, edges, properties
+    Graph iterators
+    Drawing graphs
+    Saving pictures
 Data collection (60 min) (Alex)
-Twitter -> (code, slides)
-1% feed
-Hashtag Networks
-Simple visualization and analysis
-Follow / keyword feed
-Retweet networks
-Search API (rate-limited)
-Follow networks
-CrunchBase -- snowball search
-Competition network
+    Twitter -> (code, slides)
+        1% feed
+        Hashtag Networks
+        Simple visualization and analysis
+    Follow / keyword feed
+        Retweet networks
+    Search API (rate-limited)
+        Follow networks
+    CrunchBase -- snowball search
+        Competition network
 
 (break 10 min)
+
 Centralities (30-40 min) (max)
-Degree, betweenness, closeness (slides done)
-KloutScore (make slides)
-PageRank (make slides)
-Communities and boundary spanners (30-40 min) (find good data)
-Hierarchical clustering (code from the book)
-Graph drawing with colors -- multimode.py
+    Degree, betweenness, closeness (slides done)
+    KloutScore (make slides)
+    PageRank (make slides)
+    Communities and boundary spanners (30-40 min) (find good data)
+    Hierarchical clustering (code from the book)
+    Graph drawing with colors -- multimode.py
 
 (break 10 min)
+
 Information diffusion (60 min) (max - slides)
-Theory -- how does information move?
-Similarity (homophily) vs. contagion
-Friedkin model + construct model  
-Critical mass
-Economics model -- utility/cost
-Anatomy of a viral video or a meme - Rush Limbaugh -- get data
+    Theory -- how does information move?
+    Similarity (homophily) vs. contagion
+    Friedkin model + construct model  
+    Critical mass
+    Economics model -- utility/cost
+    Anatomy of a viral video or a meme - Rush Limbaugh -- get data

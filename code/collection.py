@@ -72,22 +72,38 @@ def start_stream(username, password, listener, follow=(), track=(), async=False)
         print "Starting sample"
         stream.sample(async=async)
 
-############
+############ And now for something completely Requests.
 
 import requests
 import simplejson
 
-def rsearch(query):
+def rsearch(query, **kwargs):
+    """
+    Simple Twitter query. 15 results returned by default.
+
+    # Get more results:
+    >>> rsearch('#pycon', rpp=100)
+    # Get even more results:
+    >>> rsearch('#pycon', rpp=100, page=2)
+    """
+
+    # Assemble query parameters:
+    data = dict(q=query)
+    data.update(kwargs)
     r = requests.post('http://search.twitter.com/search.json',
-            data={"q": query})
+            data=data)
     for line in r.iter_lines():
         if line:
             json = simplejson.loads(line)
-            process_tweet(json)
+            results = json['results']
+            return results
+            # or, delete the line above and do this:
+            for j in results:
+                process_tweet(j)
 
-def tstream(username, password, **kwargs):
+def rstream(username, password, **kwargs):
     r = requests.post('https://stream.twitter.com/1/statuses/filter.json',
-            data=kwargs, auth=('username', 'password'))
+            data=kwargs, auth=(username, password))
 
     for line in r.iter_lines():
         if line: # filter out keep-alive new lines
@@ -101,7 +117,8 @@ def test_process():
 
 import sys
 def process_tweet(tweet):
-    sys.stdout.write('.')
+    #sys.stdout.write('.')
+    print tweet
     return True
 
 
@@ -109,7 +126,10 @@ retweets=nx.DiGraph()
 hashtag_net=nx.Graph()
 
 import util
-def process_retweets(tweet):
+def process_retweets(tweet, retweets=retweets, hashtag_net=hashtag_net):
+    """
+    Process a single tweet and update retweets and hashtag_net graphs.
+    """
     ### process tweet to extract information
     try:
         author=tweet['user']['screen_name']

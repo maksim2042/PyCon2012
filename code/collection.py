@@ -1,4 +1,7 @@
-import tweepy
+try:
+    import tweepy
+except:
+    pass
 import traceback
 import time
 import networkx as nx
@@ -72,14 +75,14 @@ def start_stream(username, password, listener, follow=(), track=(), async=False)
 ############
 
 import requests
-import simplejson as json
+import simplejson
 
 def rsearch(query):
-    r = requests.post('http://search.twitter.com/search.json', 
+    r = requests.post('http://search.twitter.com/search.json',
             data={"q": query})
     for line in r.iter_lines():
         if line:
-            json = json.loads(line)
+            json = simplejson.loads(line)
             process_tweet(json)
 
 def tstream(username, password, **kwargs):
@@ -88,7 +91,7 @@ def tstream(username, password, **kwargs):
 
     for line in r.iter_lines():
         if line: # filter out keep-alive new lines
-            process_tweet(json.loads(line))
+            process_tweet(simplejson.loads(line))
 
 def test_process():
     """

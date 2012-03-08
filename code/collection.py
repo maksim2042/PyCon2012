@@ -1,4 +1,7 @@
-import tweepy
+try:
+    import tweepy
+except:
+    pass
 import traceback
 import time
 import networkx as nx

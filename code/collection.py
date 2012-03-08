@@ -17,7 +17,7 @@ def connect(token=None, token_secret=None):
 
 query = '"someScreenName" OR "#sometag"' # a valid Twitter search query
 
-def run_search(query=query, api=None):
+def tsearch(query=query, api=None):
     q = {
         'q': query,
         'lang': 'en',
@@ -30,7 +30,6 @@ def run_search(query=query, api=None):
     except tweepy.TweepError:
         traceback.print_exc()
         raise
-
 
 class MyStreamListener(tweepy.StreamListener):
     def on_error(self, status_code):
@@ -69,6 +68,27 @@ def start_stream(username, password, listener, follow=(), track=(), async=False)
     else:
         print "Starting sample"
         stream.sample(async=async)
+
+############
+
+import requests
+import simplejson as json
+
+def rsearch(query):
+    r = requests.post('http://search.twitter.com/search.json', 
+            data={"q": query})
+    for line in r.iter_lines():
+        if line:
+            json = json.loads(line)
+            process_tweet(json)
+
+def tstream(username, password, **kwargs):
+    r = requests.post('https://stream.twitter.com/1/statuses/filter.json',
+            data=kwargs, auth=('username', 'password'))
+
+    for line in r.iter_lines():
+        if line: # filter out keep-alive new lines
+            process_tweet(json.loads(line))
 
 def test_process():
     """

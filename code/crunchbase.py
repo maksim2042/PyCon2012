@@ -24,7 +24,8 @@ def get_data(seed='facebook'):
 
         print company, url
         resp = requests.get(url)
-        data = json.loads(resp.content)
+        content = requests.utils.get_unicode_from_response(resp)
+        data = json.loads(content)
 
         for c in data['competitions']:
             companies.add_edge(company,c['competitor']['name'])

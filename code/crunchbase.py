@@ -24,12 +24,13 @@ def get_data(seed='facebook'):
 
         print company, url
         resp = requests.get(url)
-        content = requests.utils.get_unicode_from_response(resp)
-        data = json.loads(content)
+        #content = requests.utils.get_unicode_from_response(resp)
+        content = resp.content
+        data = json.loads(content, encoding='latin1')
 
         for c in data['competitions']:
             companies.add_edge(company,c['competitor']['name'])
             if c['competitor']['name'] not in visited:
                 queue.append(c['competitor']['permalink'])
-    return companies
+        return companies
 
